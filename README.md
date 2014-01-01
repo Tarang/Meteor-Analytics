@@ -11,10 +11,11 @@ A super cool analytics package for meteor. No code required!
 Installation
 ===============
 
-Use meteorite to install it
+Use meteorite to install it then add it as a package to your meteor app if meteorite didn't already.
 
 ```
 mrt add analytics
+meteor add analytics
 ```
 
 Then fire up your browser to finish the setup.
