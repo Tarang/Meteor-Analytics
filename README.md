@@ -18,3 +18,7 @@ mrt add analytics
 ```
 
 Then fire up your browser to finish the setup.
+
+##How much has been tested so far?
+
+Tested and works on Telescope (http://telesc.pe)
