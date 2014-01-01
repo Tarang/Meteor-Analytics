@@ -1,0 +1,8 @@
+{
+  "name": "analytics",
+  "description": "A super cool analytics package for meteor",
+  "homepage": "https://tail.sh",
+  "author": "Tarang Patel",
+  "version": "0.1.0",
+  "git": "https://github.com/Tarangp/Meteor-Analytics.git"
+}
