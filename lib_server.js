@@ -85,7 +85,8 @@ var install_hook_to = function(obj) {
 
 Meteor.methods({
 	'_Tevent':function(params) {
-		ma_event(params.type, params, this.connection.id);
+        var connection = (this.connection ? this.connection.id : params.connection)
+		ma_event(params.type, params, connection);
 	}
 });
 
@@ -164,7 +165,7 @@ var getSetupHtml = function(token) {
 Meteor.startup(tail_startup);
 
 Meteor.publish("_aurora", function() {
-	var sid = this.connection.id,
+    var sid = (this.connection && this.connection.id) || this._session.id,
 		params = {
 			ip: this._session.socket.remoteAddress,
 			headers: this._session.socket.headers,
@@ -196,7 +197,13 @@ Meteor.publish("_aurora", function() {
         ma_event('init', params, sid);
 
     this.ready();
-    this.connection.onClose(function(){ma_event('deinit', {count: _.size(self._session.server.sessions)}, sid)});
+
+    var onclose = function(){ma_event('deinit', {count: _.size(self._session.server.sessions)}, sid)}
+
+    if(this.connection)
+    this.connection.onClose(onclose);
+    else this._session.socket._session.connection._events.close.push(onclose);
+
 });
 
 Tail = {

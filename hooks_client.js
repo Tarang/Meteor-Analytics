@@ -15,7 +15,7 @@ Meteor.startup(function() {
 
 	var eventHook = function(template, selector) {
 		Template[template]._tmpl_data.events[selector].push(function(e,tmpl) {
-				Meteor.call("_Tevent", {type:'event', template: template, selector: selector});
+				Meteor.call("_Tevent", {type:'event', template: template, selector: selector, connection: Meteor.connection._lastSessionId});
 		});
 	}
 
@@ -35,7 +35,7 @@ Meteor.startup(function() {
 		console.log("Meteor Router page hooks are not supported");
 	else if(typeof(Router) != "undefined")
 		Router.addHook("after", function() {
-			Meteor.call("_Tevent", {type: 'page', path: this.path, params: this.params});
+			Meteor.call("_Tevent", {type: 'page', path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
 		});
 
 	Meteor.subscribe("_aurora");
