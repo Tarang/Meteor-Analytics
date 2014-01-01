@@ -85,8 +85,8 @@ var install_hook_to = function(obj) {
 
 Meteor.methods({
 	'_Tevent':function(params) {
-        var connection = (this.connection ? this.connection.id : params.connection)
-		ma_event(params.type, params, connection);
+        var connection = (this.connection ? this.connection.id : params.connection);
+        ma_event(params.type, params, connection);
 	}
 });
 

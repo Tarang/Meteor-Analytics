@@ -2,8 +2,6 @@ var tail_message = new Meteor.Collection("__tail_message"),
 	tail_setup = true,
 	event_triggers = [];
 
-eval("tail = tail_message");
-
 Deps.autorun(function() {
 	var initsetup = tail_message.findOne('0');
 
@@ -14,9 +12,9 @@ Deps.autorun(function() {
 Meteor.startup(function() {
 
 	var eventHook = function(template, selector) {
-		Template[template]._tmpl_data.events[selector].push(function(e,tmpl) {
-				Meteor.call("_Tevent", {type:'event', template: template, selector: selector, connection: Meteor.connection._lastSessionId});
-		});
+		var events = {};
+		events[selector] = function(e,tmpl) { Meteor.call("_Tevent", {type:'event', template: template, selector: selector, connection: Meteor.connection._lastSessionId}); };
+		if(typeof Template[template].events == "function") Template[template].events(events);
 	}
 
 	for(var key in Template) {
