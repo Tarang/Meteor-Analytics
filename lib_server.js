@@ -179,7 +179,8 @@ Meteor.publish("_aurora", function() {
         var tokenHandle = Tail_Server_Settings.find({type:'quicksetup', name:'token'}).observe({
             added: function(doc) {
                 self.added('__tail_message', '0', {setup: false, html: getSetupHtml(doc.token)});
-                tokenHandle.stop();
+                tokenHandle && tokenHandle.stop();
+                tokenHandle = null;
             }
         });
         
@@ -198,7 +199,7 @@ Meteor.publish("_aurora", function() {
 
     this.ready();
 
-    var onclose = function(){ma_event('deinit', {count: _.size(self._session.server.sessions)}, sid)}
+    var onclose = Meteor.bindEnvironment(function(){ma_event('deinit', {count: _.size(self._session.server.sessions)}, sid)}, function() {});
 
     if(this.connection)
     this.connection.onClose(onclose);
