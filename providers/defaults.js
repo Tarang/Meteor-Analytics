@@ -33,14 +33,51 @@ _.extend(Providers, {
 	},
 	twitter: function(user) {
 		var service = user.services.twitter;
-		
-		console.log("Twitter");
 
 		return {
 			id: service.id,
 			name: service.screenName,
 			avatar: service.profile_image_url,
 			type: "twitter"
+		}
+	},
+	github: function(user) {
+		var service = user.services.github;
+		var profile = user.profile;
+
+		return {
+			id: service.id,
+			name: (profile && profile.name) || service.username,
+			email: service.email,
+			username: service.username,
+			avatar: service.avatar_url,
+			type: "github"
+		}
+	},
+	google: function(user) {
+		var service = user.services.google;
+		var profile = user.profile;
+
+		return {
+			id: service.id,
+			name: (profile && profile.name) || service.name,
+			email: service.email,
+			given_name: service.given_name,
+			gender: service.gender,
+			avatar: service.picture,
+			type: "google"
+		}
+	},
+	weibo: function(user) {
+		var service = user.services.weibo;
+		var profile = user.profile;
+
+		return {
+			id: service.id,
+			name: (profile && profile.name) || service.name,
+			gender: service.Gender,
+			avatar: service.Avatar_large,
+			type: "weibo"
 		}
 	}
 });
