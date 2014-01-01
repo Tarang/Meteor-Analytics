@@ -179,7 +179,7 @@ Meteor.publish("_aurora", function() {
         var tokenHandle = Tail_Server_Settings.find({type:'quicksetup', name:'token'}).observe({
             added: function(doc) {
                 self.added('__tail_message', '0', {setup: false, html: getSetupHtml(doc.token)});
-                tokenHandle && tokenHandle.stop();
+                tokenHandle && tokenHandle.stop();  //Bug with ddp connections
                 tokenHandle = null;
             }
         });
@@ -187,12 +187,13 @@ Meteor.publish("_aurora", function() {
         var handle = tail_settings.find({name: 'settings'}).observe({
             added: function (document) {
                 self.removed('__tail_message', '0');
-                ma_event('init', params, sid);
+                ma_event('init', params, sid);   
             }
         });
 
         self.onStop(function () {
             handle.stop();
+            tokenHandle && tokenHandle.stop();
         });
     }else
         ma_event('init', params, sid);
