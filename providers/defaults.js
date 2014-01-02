@@ -34,10 +34,12 @@ _.extend(Providers, {
 	twitter: function(user) {
 		var service = user.services.twitter;
 
+		var large_avatar = service.profile_image_url.replace('_normal.', '.');
+
 		return {
 			id: service.id,
 			name: service.screenName,
-			avatar: service.profile_image_url,
+			avatar: large_avatar,
 			type: "twitter"
 		}
 	},
