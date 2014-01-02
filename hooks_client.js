@@ -1,6 +1,7 @@
 var tail_message = new Meteor.Collection("__tail_message"),
 	tail_setup = true,
-	event_triggers = [];
+	event_triggers = [],
+	booted = new Date().getTime();
 
 Deps.autorun(function() {
 	var initsetup = tail_message.findOne('0');
@@ -8,6 +9,7 @@ Deps.autorun(function() {
 	if(initsetup && tail_setup) $('body').append(initsetup.html) && (tail_setup = false);
 	else if(!tail_setup && !initsetup) $('#__tail_setup_begin, #__tail_setup_finish').toggle() && Meteor.call("_Tevent", {type:'eventsync', sets: event_triggers});
 });
+
 
 Meteor.startup(function() {
 
@@ -36,5 +38,7 @@ Meteor.startup(function() {
 			Meteor.call("_Tevent", {type: 'page', path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
 		});
 
-	Meteor.subscribe("_aurora");
+	Meteor.subscribe("_aurora", function() {
+		Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
+	});
 });
