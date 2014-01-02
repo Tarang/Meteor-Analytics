@@ -40,6 +40,7 @@ _.extend(Providers, {
 			id: service.id,
 			name: service.screenName,
 			avatar: large_avatar,
+			userId: user._id,
 			type: "twitter"
 		}
 	},
@@ -53,6 +54,7 @@ _.extend(Providers, {
 			email: service.email,
 			username: service.username,
 			avatar: service.avatar_url,
+			userId: user._id,
 			type: "github"
 		}
 	},
@@ -67,6 +69,7 @@ _.extend(Providers, {
 			given_name: service.given_name,
 			gender: service.gender,
 			avatar: service.picture,
+			userId: user._id,
 			type: "google"
 		}
 	},
@@ -79,6 +82,7 @@ _.extend(Providers, {
 			name: (profile && profile.name) || service.name,
 			gender: service.Gender,
 			avatar: service.Avatar_large,
+			userId: user._id,
 			type: "weibo"
 		}
 	}
