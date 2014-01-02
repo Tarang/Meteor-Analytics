@@ -29,23 +29,6 @@ _.extend(Providers, {
 			type: "vk"
 		}
 	},
-	vk: function(user) {
-		var service = user.services.vk,
-			profile = user.profile;
-
-		return {
-			id: service.id,
-			name: profile.name,
-			nickname: service.nickname,
-			first_name: service.first_name,
-			last_name: service.last_name,
-			avatar: service.photo_big,
-			dob: service.bdate,
-			country: service.country,
-			city: service.city,
-			type: "vk"
-		}
-	},
 	foursquare: function(user) {
 		var service = user.services.foursquare,
 			profile = user.profile;
