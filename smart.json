@@ -3,6 +3,6 @@
   "description": "A super cool analytics package for meteor",
   "homepage": "https://tail.sh",
   "author": "Tarang Patel",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "git": "https://github.com/Tarangp/Meteor-Analytics.git"
 }
