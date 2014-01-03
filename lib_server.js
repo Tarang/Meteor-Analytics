@@ -8,6 +8,7 @@ var booted = new Date();
 Providers = {};
 
 var Galactic_core = DDP.connect("https://tail.sh");
+
 var Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
 
 var ma_event = function(type, params, sid) {
@@ -141,12 +142,12 @@ var tail_startup = function() {
     	
     	stdout.hook('write', function(string, encoding, fd, write) {
     	    write(string);
-    	    ma_event('log', {text: string});
+    	    Npm.require('fibers')(function() {ma_event('log', {text: string});}).run();
     	});
 
         healthCheck = Meteor.setInterval(function() {
             var os = Npm.require('os');
-            ma_event('health', {cpus: os.cpus(), loadavg: os.loadavg(), totalmem: os.totalmem(), memory: os.freemem(), processMem: process.memoryUsage().rss});
+            ma_event('health', {cpus: os.cpus(), loadavg: os.loadavg(), totalmem: os.totalmem(), memory: (os.totalmem()-os.freemem()), processMem: process.memoryUsage().rss});
         }, 300000);
 
     } else
