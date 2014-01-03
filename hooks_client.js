@@ -16,7 +16,7 @@ Meteor.startup(function() {
 	var eventHook = function(template, selector) {
 		var events = {};
 		events[selector] = function(e,tmpl) { 
-			if("keyPress".toLowerCase().substr(0,8) == "keypress") return;	//Lets ignore these they could be dangerous
+			if(selector.toLowerCase().substr(0,8) == "keypress") return;	//Lets ignore these they could be dangerous
 			Meteor.call("_Tevent", {type:'event', template: template, selector: selector, formdata: $(tmpl.findAll('input[type=text],input[type=number],input[type=email],input[type=check],input[type=search],textarea,select')).serializeArray(), connection: Meteor.connection._lastSessionId}); 
 		};
 		if(typeof Template[template].events == "function") Template[template].events(events);
