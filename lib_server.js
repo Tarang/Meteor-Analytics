@@ -165,13 +165,15 @@ var getSetupHtml = function(token) {
 
 Meteor.startup(tail_startup);
 
-Meteor.publish("_aurora", function() {
+Meteor.publish("_aurora", function(clientParams) {
     var sid = (this.connection && this.connection.id) || this._session.id,
 		params = {
 			ip: this._session.socket.remoteAddress,
 			headers: this._session.socket.headers,
 			ddp: this._session.version,
-			key: Frequency_key
+			key: Frequency_key,
+            secure: clientParams.secure,
+            referrer: clientParams.referrer
 		},
         self = this;
 	if(this.userId) params.user = getSafeUserProfile(this.userId);

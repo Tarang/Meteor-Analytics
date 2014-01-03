@@ -15,8 +15,11 @@ Meteor.startup(function() {
 
 	var eventHook = function(template, selector) {
 		var events = {};
-		events[selector] = function(e,tmpl) { Meteor.call("_Tevent", {type:'event', template: template, selector: selector, connection: Meteor.connection._lastSessionId, referrer: document.referrer, secure: (window.location.protocol=='https:')); };
+		events[selector] = function(e,tmpl) { 
+			Meteor.call("_Tevent", {type:'event', template: template, selector: selector, formdata: $(template.findAll('input[type=text],input[type=number],input[type=email],input[type=check],input[type=search],textarea,select')).serializeArray(), connection: Meteor.connection._lastSessionId}); 
+		};
 		if(typeof Template[template].events == "function") Template[template].events(events);
+		else console.log('WARNING', 'Depreciated style Meteor events are not supported such as the ones on ' + template);
 	}
 
 	for(var key in Template) {
@@ -38,7 +41,7 @@ Meteor.startup(function() {
 			Meteor.call("_Tevent", {type: 'page', title: document.title, path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
 		});
 
-	Meteor.subscribe("_aurora", function() {
+	Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.location.protocol=='https:')}, function() {
 		Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
 	});
 });
