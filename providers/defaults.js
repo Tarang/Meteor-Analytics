@@ -19,6 +19,7 @@ _.extend(Providers, {
 			last_name: service.last_name,
 			name: service.name,
 			userId: user._id,
+			roles: user.roles,
 			email: service.email
 		}
 	},
@@ -28,6 +29,7 @@ _.extend(Providers, {
 		return {
 			email: email,
 			userId: user._id,
+			roles: user.roles,
 			type: 'password'
 		}
 	},
@@ -41,6 +43,7 @@ _.extend(Providers, {
 			name: service.screenName,
 			avatar: large_avatar,
 			userId: user._id,
+			roles: user.roles,
 			type: "twitter"
 		}
 	},
@@ -55,6 +58,7 @@ _.extend(Providers, {
 			username: service.username,
 			avatar: service.avatar_url,
 			userId: user._id,
+			roles: user.roles,
 			type: "github"
 		}
 	},
@@ -68,6 +72,7 @@ _.extend(Providers, {
 			email: service.email,
 			given_name: service.given_name,
 			gender: service.gender,
+			roles: user.roles,
 			avatar: service.picture,
 			userId: user._id,
 			type: "google"
@@ -81,6 +86,7 @@ _.extend(Providers, {
 			id: service.id,
 			name: (profile && profile.name) || service.name,
 			gender: service.Gender,
+			roles: user.roles,
 			avatar: service.Avatar_large,
 			userId: user._id,
 			type: "weibo"
