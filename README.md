@@ -3,8 +3,11 @@ Meteor-Analytics
 
 A super cool analytics package for meteor. No code required!
 
-### Caution Alpha software!
 
+-------
+
+Caution Alpha software!
+==
 >This software comes with a warning. It's still being tested and isn't completed! Your feedback would be loved to help improve it.
 
 
@@ -22,4 +25,10 @@ Then fire up your browser to finish the setup.
 
 ##How much has been tested so far?
 
-Tested and works on Telescope (http://telesc.pe)
+Tested and works on Telescope (http://telesc.pe) and on Groupthink (https://github.com/awatson1978/groupthink)
+
+
+### Supported Routers
+
+ - IronRouter (https://github.com/EventedMind/iron-router)
+ - Backbone (http://backbonejs.org/)

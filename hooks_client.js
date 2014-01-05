@@ -41,8 +41,20 @@ Meteor.startup(function() {
 		Router.addHook("after", function() {
 			Meteor.call("_Tevent", {type: 'page', title: document.title, path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
 		});
+	else if(typeof Backbone != "undefined") {
+		var originalNavigate = Backbone.history.navigate;
+		Backbone.history.navigate = function(fragment, options){
+		    originalNavigate.apply(this, arguments);
+		    Meteor.call("_Tevent", {type: 'page', title: document.title, path: '/' + Backbone.history.fragment, params: {},  connection: Meteor.connection._lastSessionId});
+		}
+	}
 
 	Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.location.protocol=='https:')}, function() {
 		Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
 	});
+
+	window.addEventListener("focus", function(event) { Meteor.call("_Tevent", {type:'event', template: "", selector: "Window activated", connection: Meteor.connection._lastSessionId});  }, false);
+	window.addEventListener("blur", function(event) { Meteor.call("_Tevent", {type:'event', template: "", selector: "Window in background", connection: Meteor.connection._lastSessionId}); }, false);
+
+
 });
