@@ -53,8 +53,17 @@ Meteor.startup(function() {
 		Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
 	});
 
-	window.addEventListener("focus", function(event) { Meteor.call("_Tevent", {type:'event', template: "", selector: "Window activated", connection: Meteor.connection._lastSessionId});  }, false);
-	window.addEventListener("blur", function(event) { Meteor.call("_Tevent", {type:'event', template: "", selector: "Window in background", connection: Meteor.connection._lastSessionId}); }, false);
+	var winstate = false;
+	window.addEventListener("focus", function(event) { 
+		if(winstate) return; 
+		winstate = true; 
+		Meteor.call("_Tevent", {type:'event', template: "", selector: "Window activated", connection: Meteor.connection._lastSessionId});  
+	}, false);
+	
+	window.addEventListener("blur", function(event) { 
+		winstate=false; 
+		Meteor.call("_Tevent", {type:'event', template: "", selector: "Window in background", connection: Meteor.connection._lastSessionId}); 
+	}, false);
 
 
 });
