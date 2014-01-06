@@ -126,6 +126,7 @@ var tail_startup = function() {
             release: Meteor.release,
             platform: os.platform(),
             type: os.type(),
+            processMem: os.memoryUsage(),
             hostname: os.hostname(),
             os_release: os.release(),
             uptime: os.uptime(),
