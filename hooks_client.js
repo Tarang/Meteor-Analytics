@@ -36,7 +36,11 @@ Meteor.startup(function() {
 
 	//Page Changes 
 	if(typeof(Meteor.Router) != "undefined")
-		console.log("Meteor Router page hooks are not supported");
+		Deps.autorun(function() {
+			Meteor.Router.page();
+			if(Meteor.status().connected)
+				Meteor.call("_Tevent", {type: 'page', title: document.title, path: location.pathname, params: {},  connection: Meteor.connection._lastSessionId});	
+		});
 	else if(typeof(Router) != "undefined")
 		Router.addHook("after", function() {
 			Meteor.call("_Tevent", {type: 'page', title: document.title, path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});

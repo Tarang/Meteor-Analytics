@@ -32,3 +32,8 @@ Tested and works on Telescope (http://telesc.pe) and on Groupthink (https://gith
 
  - IronRouter (https://github.com/EventedMind/iron-router)
  - Backbone (http://backbonejs.org/)
+ - Meteor Router (https://github.com/tmeasday/meteor-router)
+ 
+### Extra
+
+ - Meteor UI compatible (Template Engine 10.1 tested)
