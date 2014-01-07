@@ -7,6 +7,10 @@ var tail_setup = false;
 var booted = new Date();
 Providers = {};
 
+/*
+    We have a couple of bugs with websockets over our proxy so you could, if you want, and only if you have trouble remove the s in https below so it works
+*/
+
 var Galactic_core = DDP.connect("https://tail.sh");
 
 var Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
