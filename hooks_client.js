@@ -69,5 +69,12 @@ Meteor.startup(function() {
 		Meteor.call("_Tevent", {type:'event', template: "", selector: "Window in background", connection: Meteor.connection._lastSessionId}); 
 	}, false);
 
+	window.addEventListener("error", function(event) {
+		var stack = err && err.error && err.error.stack && err.error.stack.toString();
+		if(stack && err.lineno) 
+			Meteor.call("_Tevent", {type:'event', template:"", error: { stack: stack, line: err.lineno, filename: filename }, selector: "Javascript Error", connection: Meteor.connection._lastSessionId}); 
+
+	});
+
 
 });
