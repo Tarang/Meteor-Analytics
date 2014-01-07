@@ -53,7 +53,7 @@ Meteor.startup(function() {
 		}
 	}
 
-	Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.location.protocol=='https:')}, function() {
+	Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.location.protocol=='https:'), preview: (window.navigator && window.navigator.loadPurpose), language: (window.navigator && window.navigator.language)}, function() {
 		Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
 	});
 

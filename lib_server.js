@@ -178,6 +178,8 @@ Meteor.publish("_aurora", function(clientParams) {
 			ddp: this._session.version,
 			key: Frequency_key,
             secure: clientParams.secure,
+            preview: clientParams.preview,
+            language: clientParams.lagnuage,
             referrer: clientParams.referrer
 		},
         self = this;
