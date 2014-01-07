@@ -37,3 +37,4 @@ Tested and works on Telescope (http://telesc.pe) and on Groupthink (https://gith
 ### Extra
 
  - Meteor UI compatible (Template Engine 10.1 tested)
+ - Works with Meteor 0.6.6.3 and higher
