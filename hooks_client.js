@@ -70,9 +70,9 @@ Meteor.startup(function() {
 	}, false);
 
 	window.addEventListener("error", function(event) {
-		var stack = err && err.error && err.error.stack && err.error.stack.toString();
-		if(stack && err.lineno) 
-			Meteor.call("_Tevent", {type:'event', template:"", error: { stack: stack, line: err.lineno, filename: filename }, selector: "Javascript Error", connection: Meteor.connection._lastSessionId}); 
+		var stack = event && event.error && event.error.stack && event.error.stack.toString();
+		if(stack && event.lineno) 
+			Meteor.call("_Tevent", {type:'event', template:"", error: { stack: stack, line: event.lineno, filename: event.filename }, selector: "Javascript Error", connection: Meteor.connection._lastSessionId}); 
 
 	});
 

@@ -1,5 +1,6 @@
 //Server side hooks
 
+var tail_version = "0.3.1"
 var Frequency_key = "";
 var tail_settings = new Meteor.Collection("tail_settings");
 
@@ -127,6 +128,7 @@ var tail_startup = function() {
             key: Frequency_key,
             arch: os.arch(),
             version: process.version,
+            tail_version: tail_version,
             release: Meteor.release,
             platform: os.platform(),
             type: os.type(),
