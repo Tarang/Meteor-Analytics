@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.3.1"
+var tail_version = "0.3.2"
 var Frequency_key = "";
 var tail_settings = new Meteor.Collection("tail_settings");
 
@@ -181,8 +181,9 @@ Meteor.publish("_aurora", function(clientParams) {
 			key: Frequency_key,
             secure: clientParams.secure,
             preview: clientParams.preview,
-            language: clientParams.lagnuage,
-            referrer: clientParams.referrer
+            language: clientParams.language,
+            referrer: clientParams.referrer,
+            uid: clientParams.uid
 		},
         self = this;
 	if(this.userId) params.user = getSafeUserProfile(this.userId);
