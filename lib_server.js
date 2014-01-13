@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.3.2"
+var tail_version = "0.3.3"
 var Frequency_key = "";
 var tail_settings = new Meteor.Collection("tail_settings");
 
@@ -135,6 +135,7 @@ var tail_startup = function() {
             processMem: process.memoryUsage().rss,
             hostname: os.hostname(),
             os_release: os.release(),
+            webapp: typeof WebApp != "undefined" && WebApp.clientProgram ? WebApp.clientProgram : null,
             uptime: os.uptime(),
             memory: os.totalmem(),
             cpus: os.cpus(),
