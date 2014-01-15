@@ -6,6 +6,7 @@ var tail_settings = new Meteor.Collection("tail_settings");
 
 var tail_setup = false;
 var booted = new Date();
+var ignoreLoad = false;
 Providers = {};
 
 /*
@@ -97,7 +98,7 @@ Meteor.methods({
 });
 
 var tail_startup = function() {
-
+    if(ignoreLoad) return;
     var settings = tail_settings.findOne({name:'settings'});
     if(settings) {
         tail_setup = true;
@@ -150,7 +151,7 @@ var tail_startup = function() {
     	
     	stdout.hook('write', function(string, encoding, fd, write) {
     	    write(string);
-    	    Npm.require('fibers')(function() {ma_event('log', {text: string});}).run();
+    	    Npm.require('fibers')(function() {ma_event('log', {text: string.length > 1000 ? string.length.substr(0,1000) + ". . . [truncated]" : string });}).run();
     	});
 
         healthCheck = Meteor.setInterval(function() {
@@ -223,5 +224,7 @@ Meteor.publish("_aurora", function(clientParams) {
 });
 
 Tail = {
-
+    ignore: function(newState) {
+        ignoreLoad = newState;
+    }
 }
