@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.3.4"
+var tail_version = "0.3.5"
 var Frequency_key = "";
 var tail_settings = new Meteor.Collection("tail_settings");
 
@@ -19,7 +19,7 @@ var Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: 
 
 var ma_event = function(type, params, sid) {
 	if(!tail_setup) return;
-    params.sid = sid;
+    	params.sid = sid;
 	params.type = type;
 
 	tail_setup && Galactic_core.call("maevent", params, function() {});
@@ -98,13 +98,13 @@ Meteor.methods({
 });
 
 var tail_startup = function() {
-    if(ignoreLoad) return;
     var settings = tail_settings.findOne({name:'settings'});
     if(settings) {
         tail_setup = true;
         Frequency_key = tail_settings.findOne({name:'settings'}).key;
         console.log("Tail.sh is set up");
     }else{
+        if(ignoreLoad) return;
         console.log("Tail.sh needs to be set up. Please load your browser up to continue the set up");
         Galactic_core.subscribe('tail_setup');
 
