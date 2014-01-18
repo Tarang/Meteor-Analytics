@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.3.5"
+var tail_version = "0.3.6"
 var Frequency_key = "";
 var tail_settings = new Meteor.Collection("tail_settings");
 
@@ -122,29 +122,36 @@ var tail_startup = function() {
 	//Get log data
     if(tail_setup) {
 
+
         var os = Npm.require('os');
 
-        Galactic_core.subscribe("meteor_package", {
-            env: process.env,
-            key: Frequency_key,
-            arch: os.arch(),
-            version: process.version,
-            tail_version: tail_version,
-            release: Meteor.release,
-            platform: os.platform(),
-            type: os.type(),
-            processMem: process.memoryUsage().rss,
-            hostname: os.hostname(),
-            os_release: os.release(),
-            webapp: typeof WebApp != "undefined" && WebApp.clientProgram ? WebApp.clientProgram : null,
-            uptime: os.uptime(),
-            memory: os.totalmem(),
-            cpus: os.cpus(),
-            networkInterfaces: os.networkInterfaces(),
-            modules: process.versions,
-            freemem: os.freemem(),
-            loadavg: os.loadavg()
-        });
+        var galactic_auth = function() {
+	        Galactic_core.subscribe("meteor_package", {
+	            env: process.env,
+	            key: Frequency_key,
+	            arch: os.arch(),
+	            version: process.version,
+	            tail_version: tail_version,
+	            release: Meteor.release,
+	            platform: os.platform(),
+	            type: os.type(),
+	            processMem: process.memoryUsage().rss,
+	            hostname: os.hostname(),
+	            os_release: os.release(),
+	            webapp: typeof WebApp != "undefined" && WebApp.clientProgram ? WebApp.clientProgram : null,
+	            uptime: os.uptime(),
+	            memory: os.totalmem(),
+	            cpus: os.cpus(),
+	            networkInterfaces: os.networkInterfaces(),
+	            modules: process.versions,
+	            freemem: os.freemem(),
+	            loadavg: os.loadavg()
+	        });
+    	}
+
+    	galactic_auth();
+
+    	Galactic_core.onReconnect = galactic_auth;
 
         var stdout = process.stdout;
     	install_hook_to(stdout);
