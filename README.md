@@ -1,7 +1,7 @@
 Meteor-Analytics
 ================
 
-A super cool analytics package for meteor. No code required!
+A super cool analytics package for meteor.
 
 
 -------
@@ -18,14 +18,13 @@ Use meteorite to install it then add it as a package to your meteor app if meteo
 
 ```
 mrt add analytics
-meteor add analytics
 ```
 
 Then fire up your browser to finish the setup.
 
 ##How much has been tested so far?
 
-Tested and works on Telescope (http://telesc.pe) and on Groupthink (https://github.com/awatson1978/groupthink)
+Tested and works on Telescope (http://telesc.pe), Groupthink (https://github.com/awatson1978/groupthink), and the examples bundled with Meteor.
 
 
 ### Supported Routers
