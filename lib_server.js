@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.3.7",
+var tail_version = "0.3.8",
     Frequency_key = "",
     tail_settings = new Meteor.Collection("tail_settings"),
     tail_setup = false,
@@ -203,14 +203,13 @@ Meteor.publish("_aurora", function(clientParams) {
     }else
         ma_event('init', params, sid);
 
-    this.ready();
-
     var onclose = Meteor.bindEnvironment(function(){ma_event('deinit', {count: _.size(self._session.server.sessions)}, sid)}, function() {});
 
     if(this.connection)
     this.connection.onClose(onclose);
     else this._session.socket._session.connection._events.close.push(onclose);
 
+    this.ready();
 });
 
 Tail = {
