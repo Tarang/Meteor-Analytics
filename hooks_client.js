@@ -10,21 +10,24 @@ Deps.autorun(function() {
 	else if(!tail_setup && !initsetup) $('#__tail_setup_begin, #__tail_setup_finish').toggle() && Meteor.call("_Tevent", {type:'eventsync', sets: event_triggers});
 });
 
-Meteor.startup(function() {
-
-	var getUUID = function() {
-		if(window.localStorage) {
-			var token = window.localStorage.getItem("tailuiid");
-			if(!token) {
-				token = Random.id();
-				window.localStorage.setItem("tailuiid", token);
-			}else return token
-		}else{
-
-		}
+var getUUID = function() {
+	if(window.localStorage) {
+		var token = window.localStorage.getItem("tailuiid");
+		if(!token) {
+			token = Random.id();
+			window.localStorage.setItem("tailuiid", token);
+		}else return token
+	}else{
+		//Do something with cookies?
 	}
+}
+
+Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.location.protocol=='https:'), preview: (window.navigator && window.navigator.loadPurpose), language: (window.navigator && window.navigator.language), uid: getUUID() }, function() {
+	Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
+});
 
 
+Meteor.startup(function() {
 	var eventHook = function(template, selector) {
 		var events = {};
 		events[selector] = function(e,tmpl) { 
@@ -65,10 +68,6 @@ Meteor.startup(function() {
 		}
 	}
 
-	Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.location.protocol=='https:'), preview: (window.navigator && window.navigator.loadPurpose), language: (window.navigator && window.navigator.language), uid: getUUID() }, function() {
-		Meteor.call("_Tevent", {type: 'boot', connection: Meteor.connection._lastSessionId, time: new Date().getTime() - booted});
-	});
-
 	var winstate = false;
 	window.addEventListener("focus", function(event) { 
 		if(winstate) return; 
@@ -87,6 +86,4 @@ Meteor.startup(function() {
 			Meteor.call("_Tevent", {type:'event', template:"", error: { stack: stack, line: event.lineno, filename: event.filename }, selector: "Javascript Error", connection: Meteor.connection._lastSessionId}); 
 
 	});
-
-
 });

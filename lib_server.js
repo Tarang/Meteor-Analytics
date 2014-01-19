@@ -1,64 +1,46 @@
 //Server side hooks
 
-var tail_version = "0.3.6"
-var Frequency_key = "";
-var tail_settings = new Meteor.Collection("tail_settings");
+var tail_version = "0.3.7",
+    Frequency_key = "",
+    tail_settings = new Meteor.Collection("tail_settings"),
+    tail_setup = false,
+    booted = new Date(),
+    ignoreLoad = false,
+    Galactic_core = DDP.connect("https://tail.sh"),
+    Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
 
-var tail_setup = false;
-var booted = new Date();
-var ignoreLoad = false;
 Providers = {};
-
-/*
-    We have a couple of bugs with websockets over our proxy so you could, if you want, and only if you have trouble remove the s in https below so it works
-*/
-
-var Galactic_core = DDP.connect("https://tail.sh");
-
-var Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
 
 var ma_event = function(type, params, sid) {
 	if(!tail_setup) return;
-    	params.sid = sid;
+    params.sid = sid;
 	params.type = type;
-
 	tail_setup && Galactic_core.call("maevent", params, function() {});
 }
 
 var install_hook_to = function(obj) {
-    
-    if (obj.hook || obj.unhook) {
+    if (obj.hook || obj.unhook) 
         throw new Error('Object already has properties hook and/or unhook');
-    }
     
     obj.hook = function(_meth_name, _fn, _is_async) {
         var self = this,
             meth_ref;
         
-        // Make sure method exists
-        if (! (Object.prototype.toString.call(self[_meth_name]) === '[object Function]')) {
+        if (! (Object.prototype.toString.call(self[_meth_name]) === '[object Function]'))
             throw new Error('Invalid method: ' + _meth_name);
-        }
  
-        // We should not hook a hook
-        if (self.unhook.methods[_meth_name]) {
+        if (self.unhook.methods[_meth_name])
             throw new Error('Method already hooked: ' + _meth_name);
-        }
  
-        // Reference default method
         meth_ref = (self.unhook.methods[_meth_name] = self[_meth_name]);
  
         self[_meth_name] = function() {
             var args = Array.prototype.slice.call(arguments);
  
-            // Our hook should take the same number of arguments 
-            // as the original method so we must fill with undefined
-            // optional args not provided in the call
             while (args.length < meth_ref.length) {
                 args.push(undefined);
             }
  
-            // Last argument is always original method call
             args.push(function() {
                 var args = arguments;
                 
@@ -82,9 +64,8 @@ var install_hook_to = function(obj) {
         if (ref) {
             self[_meth_name] = self.unhook.methods[_meth_name];
             delete self.unhook.methods[_meth_name];
-        } else {
-            throw new Error('Method not hooked: ' + _meth_name);
         }
+        else throw new Error('Method not hooked: ' + _meth_name);
     };
  
     obj.unhook.methods = {};
@@ -92,16 +73,18 @@ var install_hook_to = function(obj) {
 
 Meteor.methods({
 	'_Tevent':function(params) {
-        var connection = (this.connection ? this.connection.id : params.connection);
-        ma_event(params.type, params, connection);
+        ma_event(params.type, params, this.connection ? this.connection.id : params.connection);
 	}
 });
 
 var tail_startup = function() {
     var settings = tail_settings.findOne({name:'settings'});
+    
+    if(Frequency_key != "") settings = { key: "Frequency_key" }
+
     if(settings) {
         tail_setup = true;
-        Frequency_key = tail_settings.findOne({name:'settings'}).key;
+        Frequency_key = settings.key;
         console.log("Tail.sh is set up");
     }else{
         if(ignoreLoad) return;
@@ -201,7 +184,7 @@ Meteor.publish("_aurora", function(clientParams) {
         var tokenHandle = Tail_Server_Settings.find({type:'quicksetup', name:'token'}).observe({
             added: function(doc) {
                 self.added('__tail_message', '0', {setup: false, html: getSetupHtml(doc.token)});
-                tokenHandle && tokenHandle.stop();  //Bug with ddp connections
+                tokenHandle && tokenHandle.stop();
                 tokenHandle = null;
             }
         });
@@ -233,5 +216,8 @@ Meteor.publish("_aurora", function(clientParams) {
 Tail = {
     ignore: function(newState) {
         ignoreLoad = newState;
+    },
+    setup: function(appId) {
+        Frequency_key = appId;
     }
 }
