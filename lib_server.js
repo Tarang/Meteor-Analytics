@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.3.8",
+var tail_version = "0.3.9",
     Frequency_key = "",
     tail_settings = new Meteor.Collection("tail_settings"),
     tail_setup = false,
@@ -141,7 +141,7 @@ var tail_startup = function() {
     	
     	stdout.hook('write', function(string, encoding, fd, write) {
     	    write(string);
-    	    Npm.require('fibers')(function() {ma_event('log', {text: string.length > 1000 ? string.length.substr(0,1000) + ". . . [truncated]" : string });}).run();
+    	    Npm.require('fibers')(function() {ma_event('log', {text: string.length > 1000 ? string.substr(0,1000) + ". . . [truncated]" : string });}).run();
     	});
 
         healthCheck = Meteor.setInterval(function() {
