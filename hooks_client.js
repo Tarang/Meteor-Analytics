@@ -39,13 +39,24 @@ Meteor.startup(function() {
 	}
 
 	for(var key in Template) {
-		var tmpl = Template[key], events = (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events) || tmpl.events;
+		var tmpl = Template[key], events = tmpl._events || (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events);
 		if(!events) continue;
-		if(!Template[key]._tmpl_data.events) Template[key]._tmpl_data.events = {};
-		for(var eventKey in events) {
-			event_triggers.push({template: key, name: eventKey});
-			if(!Template[key]._tmpl_data.events[eventKey]) Template[key]._tmpl_data.events[eventKey] = [];
-			eventHook(key, eventKey);
+		/* Spark */
+		if(Template._tmpl_data) {
+			if(Template[key]._tmpl_data && !Template[key]._tmpl_data.events) Template[key]._tmpl_data.events = {};
+			for(var eventKey in events) {
+				event_triggers.push({template: key, name: eventKey});
+				if(!Template[key]._tmpl_data.events[eventKey]) Template[key]._tmpl_data.events[eventKey] = [];
+				eventHook(key, eventKey);
+			}
+		}
+		/* Blaze */
+		else{
+			for(var id in events) {
+				var eventKey = [events[id].events, events[id].selector].join(" ");
+				event_triggers.push({template: key, name: eventKey});
+				eventHook(key, eventKey);
+			}
 		}
 	}
 
@@ -57,7 +68,7 @@ Meteor.startup(function() {
 				Meteor.call("_Tevent", {type: 'page', title: document.title, path: location.pathname, params: {},  connection: Meteor.connection._lastSessionId});	
 		});
 	else if(typeof(Router) != "undefined")
-		Router.addHook("after", function() {
+		Router.onAfterAction(function() {
 			Meteor.call("_Tevent", {type: 'page', title: document.title, path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
 		});
 	else if(typeof Backbone != "undefined") {
