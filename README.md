@@ -36,4 +36,4 @@ Tested and works on Telescope (http://telesc.pe), Groupthink (https://github.com
 ### Current Users
 
  - ServiceLocale (https://servicelocale.com)
- - Eato (https://eato.co.in)
+ - Eato (https://eato.co.in) (https://eato.co.za)
