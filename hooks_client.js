@@ -28,9 +28,10 @@ Meteor.subscribe("_aurora", { referrer: document.referrer, secure: (window.locat
 
 
 Meteor.startup(function() {
-	var eventHook = function(template, selector) {
+	var eventHook = function(template, selector, eventType) {
 		var events = {};
 		events[selector] = function(e,tmpl) { 
+			if(eventType && ["keypress", "keyup", "mouseout", "mouseover", "keydown"].indexOf(eventType.toLowerCase()) >=0) return;
 			if(selector.toLowerCase().substr(0,8) == "keypress") return;	//Lets ignore these they could be dangerous
 			Meteor.call("_Tevent", {type:'event', template: template, selector: selector, formdata: $(tmpl.findAll('input[type=text],input[type=number],input[type=email],input[type=check],input[type=search],textarea,select')).serializeArray(), connection: Meteor.connection._lastSessionId}); 
 		};
@@ -55,7 +56,7 @@ Meteor.startup(function() {
 			for(var id in events) {
 				var eventKey = [events[id].events, events[id].selector].join(" ");
 				event_triggers.push({template: key, name: eventKey});
-				eventHook(key, eventKey);
+				eventHook(key, eventKey, events[id].events);
 			}
 		}
 	}
