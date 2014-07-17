@@ -1,12 +1,12 @@
 //Server side hooks
 
-var tail_version = "0.3.9",
+var tail_version = "0.4.0",
     Frequency_key = "",
     tail_settings = new Meteor.Collection("tail_settings"),
     tail_setup = false,
     booted = new Date(),
     ignoreLoad = false,
-    Galactic_core = DDP.connect("https://tail.sh"),
+    Galactic_core = DDP.connect("http://tail.sh"),
     Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
 
 Providers = {};
