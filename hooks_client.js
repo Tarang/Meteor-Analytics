@@ -51,11 +51,23 @@ Meteor.startup(function() {
 				eventHook(key, eventKey);
 			}
 		}
-		/* Blaze */
-		else if(Template[key].__eventMaps{
+		/* Blaze Refactor*/
+		else if(Template[key].__eventMaps){
+  			var i = events.length;
+  			while(i--) {
+  				for(var id in events[i]) {
+	  				console.log(key, id);
+	 				event_triggers.push({template: key, name: id});
+	 				eventHook(key, id, id.split(" ")[0]);
+	  			}
+  			}
+  		}
+  		/* Blaze */
+		else{
 			for(var id in events) {
-				event_triggers.push({template: key, name: id});
-				eventHook(key, id, id.split(" ")[0]);
+				var eventKey = [events[id].events, events[id].selector].join(" ");
+				event_triggers.push({template: key, name: eventKey});
+				eventHook(key, eventKey, events[id].events);
 			}
 		}
 	}
