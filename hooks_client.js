@@ -40,10 +40,10 @@ Meteor.startup(function() {
 	}
 
 	for(var key in Template) {
-		var tmpl = Template[key], events = tmpl._events || (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events);
+		var tmpl = Template[key], events = tmpl.__eventMaps || tmpl._events || (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events);
 		if(!events) continue;
 		/* Spark */
-		if(Template._tmpl_data) {
+		if(Template[key]._tmpl_data) {
 			if(Template[key]._tmpl_data && !Template[key]._tmpl_data.events) Template[key]._tmpl_data.events = {};
 			for(var eventKey in events) {
 				event_triggers.push({template: key, name: eventKey});
@@ -52,11 +52,10 @@ Meteor.startup(function() {
 			}
 		}
 		/* Blaze */
-		else{
+		else if(Template[key].__eventMaps{
 			for(var id in events) {
-				var eventKey = [events[id].events, events[id].selector].join(" ");
-				event_triggers.push({template: key, name: eventKey});
-				eventHook(key, eventKey, events[id].events);
+				event_triggers.push({template: key, name: id});
+				eventHook(key, id, id.split(" ")[0]);
 			}
 		}
 	}
