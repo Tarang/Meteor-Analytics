@@ -56,7 +56,6 @@ Meteor.startup(function() {
   			var i = events.length;
   			while(i--) {
   				for(var id in events[i]) {
-	  				console.log(key, id);
 	 				event_triggers.push({template: key, name: id});
 	 				eventHook(key, id, id.split(" ")[0]);
 	  			}

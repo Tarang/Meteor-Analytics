@@ -13,10 +13,13 @@
 		<div style="margin: auto; top: 0; left: 0; right: 0; bottom: 0; width: 400px; height: 210px; position: absolute; background: white; box-shadow: 2px 2px 6px 2px #888888; border-radius: 4px;">
 			<div style="padding: 10px;">
 				<form>
-				<span style="font-size: 15pt">Tail.sh setup</span>
-				<hr style="border-bottom: 0px;" />
+				<div>
+					<span style="font-size: 15pt">Tail.sh setup</span>
+					<span style="float: right;margin-right: 10px;"><a href="#" onclick="$('#__tail_setup').remove(); return false;">X</a></span>
+				</div>
+				<hr style="border-bottom: 0px; margin: 5px;" />
 				<div id="__tail_setup_begin">
-					<p>You need to associate your app to Tail.sh (meteors also have tails!)</p>
+					<p style="margin: 20px 5px 5px 5px">You need to associate your app to Tail.sh (meteors also have tails!)</p>
 					<br/>
 					<div style="text-align: center">
 						<a class="_tailius" href="https://tail.sh/projects/{{token}}" target="_blank">Quick Setup (new window)</a>
