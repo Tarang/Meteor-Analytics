@@ -1,6 +1,6 @@
 Package.describe({
 	summary: "An analytics package for meteor",
-	version: "0.4.7"
+	version: "0.4.8"
 });
 
 Package.on_use(function (api) {

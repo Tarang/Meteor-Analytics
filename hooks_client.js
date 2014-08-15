@@ -6,7 +6,9 @@ var tail_message = new Meteor.Collection("__tail_message"),
 Deps.autorun(function() {
 	var initsetup = tail_message.findOne('0');
 
-	if(initsetup && tail_setup) $('body').append(initsetup.html) && (tail_setup = false);
+	if(initsetup && tail_setup) Meteor.startup(function() { 
+		$('body').append(initsetup.html) && (tail_setup = false);
+	})
 	else if(!tail_setup && !initsetup) $('#__tail_setup_begin, #__tail_setup_finish').toggle() && Meteor.call("_Tevent", {type:'eventsync', sets: event_triggers});
 });
 
