@@ -2,11 +2,12 @@
 
 var tail_version = "0.4.6",
     Frequency_key = "",
+    default_server = "https://tail.sh",
     tail_settings = new Meteor.Collection("tail_settings"),
     tail_setup = false,
     booted = new Date(),
     ignoreLoad = false,
-    Galactic_core = DDP.connect("https://tail.sh"),
+    Galactic_core = DDP.connect(serverUrl()),
     Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
 
 Providers = {};
@@ -85,10 +86,9 @@ var tail_startup = function() {
     if(settings) {
         tail_setup = true;
         Frequency_key = settings.key;
-        console.log("Tail.sh is set up");
     }else{
         if(ignoreLoad) return;
-        console.log("Tail.sh needs to be set up. Please load your browser up to continue the set up");
+        console.log(serverUrl() == default_server ? "Tail.sh needs to be set up. Please load your browser up to continue the set up" : "Meteor Analytics: Load your app up in the browser to begin setup");
         Galactic_core.subscribe('tail_setup');
 
         Tail_Server_Settings.find({type: 'quicksetup'}).observe({
@@ -159,7 +159,7 @@ var tail_startup = function() {
 }
 
 var getSetupHtml = function(token) {
-    return Assets.getText("client/setup.html").replace("{{token}}", token);
+    return Assets.getText("client/setup.html").replace("{{token}}", token).replace("{{serverUrl}}", serverUrl);
 }
 
 Meteor.startup(tail_startup);
@@ -219,4 +219,8 @@ Tail = {
     setup: function(appId) {
         Frequency_key = appId;
     }
+}
+
+function serverUrl() {
+    return process.env.TAIL_URL || default_server
 }
