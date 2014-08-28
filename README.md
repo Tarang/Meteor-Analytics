@@ -11,8 +11,9 @@ Installation
 
 Use meteorite to install it then add it as a package to your meteor app if meteorite didn't already.
 
+
 ```
-mrt add analytics
+meteor add analytics:analytics
 ```
 
 Then fire up your browser to finish the setup.
@@ -37,3 +38,8 @@ Tested and works on Telescope (http://telesc.pe), Groupthink (https://github.com
 
  - ServiceLocale (https://servicelocale.com)
  - Eato (https://eato.co.in) (https://eato.co.za)
+
+
+## Meteor 0.9.0 and less
+
+You can use meteorite to add the package in using `mrt add analytics`. For Meteor 0.9.0 and above you can add the package with `meteor add analytics:analytics`
