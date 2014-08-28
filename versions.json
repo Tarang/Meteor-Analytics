@@ -14,7 +14,7 @@
     ],
     [
       "deps",
-      "1.0.0"
+      "1.0.1"
     ],
     [
       "ejson",
@@ -26,7 +26,7 @@
     ],
     [
       "htmljs",
-      "1.0.0"
+      "1.0.0-cordova1"
     ],
     [
       "id-map",
@@ -42,7 +42,7 @@
     ],
     [
       "livedata",
-      "1.0.3"
+      "1.0.7"
     ],
     [
       "logging",
@@ -54,7 +54,7 @@
     ],
     [
       "minimongo",
-      "1.0.1"
+      "1.0.1-cordova1"
     ],
     [
       "observe-sequence",
@@ -74,7 +74,7 @@
     ],
     [
       "templating",
-      "1.0.3"
+      "1.0.4"
     ],
     [
       "ui",
@@ -86,6 +86,6 @@
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.11",
+  "toolVersion": "meteor-tool@1.0.26",
   "format": "1.0"
 }

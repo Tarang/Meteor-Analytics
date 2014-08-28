@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.4.6",
+var tail_version = "0.5.0",
     Frequency_key = "",
     default_server = "https://tail.sh",
     tail_settings = new Meteor.Collection("tail_settings"),

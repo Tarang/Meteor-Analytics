@@ -1,6 +1,8 @@
 Package.describe({
 	summary: "An analytics package for meteor",
-	version: "0.4.9"
+	version: "0.5.0",
+	git: "https://github.com/Tarang/Meteor-Analytics.git",
+	name: "analytics:analytics"
 });
 
 Package.on_use(function (api) {
