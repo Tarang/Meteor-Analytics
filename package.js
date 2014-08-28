@@ -1,10 +1,10 @@
 Package.describe({
 	summary: "An analytics package for meteor",
-	version: "0.4.8"
+	version: "0.4.9"
 });
 
 Package.on_use(function (api) {
-	if(api.versionsFrom) api.versionsFrom("METEOR-CORE@0.9.0-atm");
+	if(api.versionsFrom) api.versionsFrom("METEOR@0.9.0");
 	api.use(['underscore', 'templating', 'deps', 'jquery', 'random'],'client');
 	api.use(['livedata', 'underscore'],'server');
 	api.add_files(['hooks_client.js'], 'client');
