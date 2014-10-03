@@ -1,4 +1,4 @@
-var tail_message = new Meteor.Collection("__tail_message"),
+var tail_message = new Mongo.Collection("__tail_message"),
 	tail_setup = true,
 	event_triggers = [],
 	booted = new Date().getTime();
@@ -44,17 +44,9 @@ Meteor.startup(function() {
 	for(var key in Template) {
 		var tmpl = Template[key], events = tmpl.__eventMaps || tmpl._events || (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events);
 		if(!events) continue;
-		/* Spark */
-		if(Template[key]._tmpl_data) {
-			if(Template[key]._tmpl_data && !Template[key]._tmpl_data.events) Template[key]._tmpl_data.events = {};
-			for(var eventKey in events) {
-				event_triggers.push({template: key, name: eventKey});
-				if(!Template[key]._tmpl_data.events[eventKey]) Template[key]._tmpl_data.events[eventKey] = [];
-				eventHook(key, eventKey);
-			}
-		}
+
 		/* Blaze Refactor*/
-		else if(Template[key].__eventMaps){
+		if(Template[key].__eventMaps){
   			var i = events.length;
   			while(i--) {
   				for(var id in events[i]) {
@@ -63,14 +55,6 @@ Meteor.startup(function() {
 	  			}
   			}
   		}
-  		/* Blaze */
-		else{
-			for(var id in events) {
-				var eventKey = [events[id].events, events[id].selector].join(" ");
-				event_triggers.push({template: key, name: eventKey});
-				eventHook(key, eventKey, events[id].events);
-			}
-		}
 	}
 
 	//Page Changes 

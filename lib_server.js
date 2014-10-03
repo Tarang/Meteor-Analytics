@@ -1,14 +1,14 @@
 //Server side hooks
 
-var tail_version = "0.5.0",
+var tail_version = "0.5.1",
     Frequency_key = "",
     default_server = "https://tail.sh",
-    tail_settings = new Meteor.Collection("tail_settings"),
+    tail_settings = new Mongo.Collection("tail_settings"),
     tail_setup = false,
     booted = new Date(),
     ignoreLoad = false,
     Galactic_core = DDP.connect(serverUrl()),
-    Tail_Server_Settings = new Meteor.Collection("tail_settings", { connection: Galactic_core });
+    Tail_Server_Settings = new Mongo.Collection("tail_settings", { connection: Galactic_core });
 
 Providers = {};
 
@@ -93,8 +93,10 @@ var tail_startup = function() {
 
         Tail_Server_Settings.find({type: 'quicksetup'}).observe({
             added: function (doc) {
-                if(tail_settings.findOne({name: 'settings'})) return false;
-                if(doc.name == 'quicksetup') tail_settings.insert({name:'settings', key: doc._id}); 
+                if(doc.type=="quicksetup") {
+                    if(tail_settings.findOne({name: 'settings'})) return false;
+                    if(doc.name == 'quicksetup') tail_settings.insert({name:'settings', key: doc._id}); 
+                }else if(doc.type=="user_state") ModifyUserState(doc.userId, doc.newState);
             }
         });
 
@@ -220,6 +222,20 @@ Tail = {
         Frequency_key = appId;
     }
 }
+
+
+
+// Accounts.onLogin(function(info) {
+//     //Log Event
+// });
+
+// Accounts.onLoginFailure(function(info) {
+//     //Log Event
+// });
+
+// Accounts.validateLoginAttempt(function(info) {
+//     //Check if allowed
+// });
 
 function serverUrl() {
     return process.env.TAIL_URL || default_server

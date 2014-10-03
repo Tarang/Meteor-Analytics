@@ -1,91 +1,127 @@
 {
   "dependencies": [
     [
+      "accounts-base",
+      "1.1.2-pre.2"
+    ],
+    [
+      "application-configuration",
+      "1.0.3-pre.2"
+    ],
+    [
+      "base64",
+      "1.0.1-pre.2"
+    ],
+    [
+      "binary-heap",
+      "1.0.1-pre.2"
+    ],
+    [
       "blaze",
-      "1.0.1"
+      "2.0.2-pre.2"
     ],
     [
       "callback-hook",
-      "1.0.0"
+      "1.0.1-pre.2"
     ],
     [
       "check",
-      "1.0.0"
+      "1.0.2-pre.2"
+    ],
+    [
+      "ddp",
+      "1.0.10-pre.2"
     ],
     [
       "deps",
-      "1.0.1"
+      "1.0.5-pre.2"
     ],
     [
       "ejson",
-      "1.0.0"
+      "1.0.4-pre.2"
+    ],
+    [
+      "follower-livedata",
+      "1.0.2-pre.2"
     ],
     [
       "geojson-utils",
-      "1.0.0"
+      "1.0.1-pre.2"
     ],
     [
       "htmljs",
-      "1.0.0-cordova1"
+      "1.0.2-pre.2"
     ],
     [
       "id-map",
-      "1.0.0"
+      "1.0.1-pre.2"
     ],
     [
       "jquery",
-      "1.0.0"
+      "1.0.1-pre.2"
     ],
     [
       "json",
-      "1.0.0"
+      "1.0.1-pre.2"
     ],
     [
-      "livedata",
-      "1.0.7"
+      "localstorage",
+      "1.0.1-pre.2"
     ],
     [
       "logging",
-      "1.0.1"
+      "1.0.4-pre.2"
     ],
     [
       "meteor",
-      "1.0.2"
+      "1.1.2-pre.2"
     ],
     [
       "minimongo",
-      "1.0.1-cordova1"
+      "1.0.4-pre.3"
+    ],
+    [
+      "mongo",
+      "1.0.7-pre.2"
     ],
     [
       "observe-sequence",
-      "1.0.1"
+      "1.0.3-pre.2"
     ],
     [
       "ordered-dict",
-      "1.0.0"
+      "1.0.1-pre.2"
     ],
     [
       "random",
-      "1.0.0"
+      "1.0.1-pre.2"
+    ],
+    [
+      "reactive-var",
+      "1.0.3-pre.2"
     ],
     [
       "retry",
-      "1.0.0"
+      "1.0.1-pre.2"
+    ],
+    [
+      "service-configuration",
+      "1.0.2-pre.2"
     ],
     [
       "templating",
-      "1.0.4"
+      "1.0.8-pre.2"
     ],
     [
-      "ui",
-      "1.0.0"
+      "tracker",
+      "1.0.3-pre.2"
     ],
     [
       "underscore",
-      "1.0.0"
+      "1.0.1-pre.2"
     ]
   ],
   "pluginDependencies": [],
-  "toolVersion": "meteor-tool@1.0.26",
+  "toolVersion": "meteor-tool@1.0.34-pre.5",
   "format": "1.0"
 }
