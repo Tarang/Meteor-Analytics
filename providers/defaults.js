@@ -26,12 +26,21 @@ _.extend(Providers, {
 	password: function(user) {
 		var email = user.emails && user.emails[0] && user.emails[0].address;
 
-		return {
+		var doc = {
 			email: email,
 			userId: user._id,
 			roles: user.roles,
 			type: 'password'
 		}
+
+		if(user.profile && user.profile.name) doc.name = user.profile.name;
+		if(user.profile && user.profile.first_name) doc.first_name = user.profile.first_name;
+		if(user.profile && user.profile.firstName) doc.first_name = user.profile.firstName;
+		if(user.profile && user.profile.lastName) doc.last_name = user.profile.lastName;
+		if(user.profile && user.profile.last_name) doc.last_name = user.profile.last_name;
+		if(user.profile && user.profile.email && !doc.email) doc.email = user.profile.email;
+
+		return doc;
 	},
 	twitter: function(user) {
 		var service = user.services.twitter;

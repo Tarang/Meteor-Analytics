@@ -62,11 +62,11 @@ Meteor.startup(function() {
 		Deps.autorun(function() {
 			Meteor.Router.page();
 			if(Meteor.status().connected)
-				Meteor.call("_Tevent", {type: 'page', title: document.title, path: location.pathname, params: {},  connection: Meteor.connection._lastSessionId});	
+				Meteor.call("_Tevent", {type: 'page', title: document.title, path: window.location.pathname, params: {},  connection: Meteor.connection._lastSessionId});	
 		});
 	else if(typeof(Router) != "undefined")
 		Router.onAfterAction(function() {
-			Meteor.call("_Tevent", {type: 'page', title: document.title, path: this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
+			Meteor.call("_Tevent", {type: 'page', title: document.title, path: this.url || this.path, params: this.params,  connection: Meteor.connection._lastSessionId});
 		});
 	else if(typeof Backbone != "undefined") {
 		var originalNavigate = Backbone.history.navigate;

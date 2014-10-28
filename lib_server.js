@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.5.1",
+var tail_version = "0.9.0",
     Frequency_key = "",
     default_server = "https://tail.sh",
     tail_settings = new Mongo.Collection("tail_settings"),
@@ -222,20 +222,6 @@ Tail = {
         Frequency_key = appId;
     }
 }
-
-
-
-// Accounts.onLogin(function(info) {
-//     //Log Event
-// });
-
-// Accounts.onLoginFailure(function(info) {
-//     //Log Event
-// });
-
-// Accounts.validateLoginAttempt(function(info) {
-//     //Check if allowed
-// });
 
 function serverUrl() {
     return process.env.TAIL_URL || default_server
