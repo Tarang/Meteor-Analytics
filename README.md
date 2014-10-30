@@ -13,15 +13,10 @@ Use meteorite to install it then add it as a package to your meteor app if meteo
 
 
 ```
-meteor add analytics:analytics
+meteor add tail:core
 ```
 
 Then fire up your browser to finish the setup.
-
-##How much has been tested so far?
-
-Tested and works on Telescope (http://telesc.pe), Groupthink (https://github.com/awatson1978/groupthink), and the examples bundled with Meteor.
-
 
 ### Supported Routers
 
@@ -29,17 +24,11 @@ Tested and works on Telescope (http://telesc.pe), Groupthink (https://github.com
  - Backbone (http://backbonejs.org/)
  - Meteor Router (https://github.com/tmeasday/meteor-router)
  
-### Extra
+### More Info
 
- - Meteor UI compatible (Template Engine 10.1 tested)
- - Works with Meteor 0.6.6.3 and higher
+Visit https://tail.sh
 
 ### Current Users
 
  - ServiceLocale (https://servicelocale.com)
  - Eato (https://eato.co.in) (https://eato.co.za)
-
-
-## Meteor 0.9.0 and less
-
-You can use meteorite to add the package in using `mrt add analytics`. For Meteor 0.9.0 and above you can add the package with `meteor add analytics:analytics`
