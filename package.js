@@ -1,12 +1,12 @@
 Package.describe({
 	summary: "An analytics package for meteor",
-	version: "0.9.5",
+	version: "0.9.6",
 	git: "https://github.com/Tarang/Meteor-Analytics.git",
 	name: "tail:core"
 });
 
 Package.on_use(function (api) {
-	if(api.versionsFrom) api.versionsFrom("METEOR@1.0");
+	if(api.versionsFrom) api.versionsFrom("METEOR@1.1.0.2");
 
 	api.use(['templating', 'jquery'],'client');
 	api.use(['ddp'],'server');

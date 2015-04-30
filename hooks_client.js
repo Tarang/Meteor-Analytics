@@ -42,7 +42,7 @@ Meteor.startup(function() {
 	}
 
 	for(var key in Template) {
-		var tmpl = Template[key], events = tmpl.__eventMaps || tmpl._events || (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events);
+		var tmpl = Template[key], events = tmpl && (tmpl.__eventMaps || tmpl._events || (tmpl && tmpl._tmpl_data && tmpl._tmpl_data.events));
 		if(!events) continue;
 
 		/* Blaze Refactor*/

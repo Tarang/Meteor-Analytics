@@ -1,6 +1,6 @@
 //Server side hooks
 
-var tail_version = "0.9.1",
+var tail_version = "0.9.2",
     Frequency_key = "",
     default_server = "https://tail.sh",
     tail_settings = new Mongo.Collection("tail_settings"),
