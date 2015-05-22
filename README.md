@@ -9,9 +9,6 @@ A super cool analytics package for meteor.
 Installation
 ===============
 
-Use meteorite to install it then add it as a package to your meteor app if meteorite didn't already.
-
-
 ```
 meteor add tail:core
 ```
